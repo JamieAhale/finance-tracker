@@ -44,6 +44,15 @@ gem 'devise-bootstrap-views', '~> 1.0'
 
 gem 'alphavantage'
 
+gem 'byebug'
+
+gem 'finnhub_ruby'
+
+gem 'iex-ruby-client'
+
+gem 'rails-ujs'
+
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

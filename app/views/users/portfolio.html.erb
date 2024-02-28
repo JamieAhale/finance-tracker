@@ -1,0 +1,31 @@
+<h1 class="pb-5 pt-3">My Portfolio</h1>
+
+<h3 class="pt-5 pl-2"> Search Stocks </h3>
+
+<%= form_with(url: search_stock_path, method: :get, local: false) do |form| %>
+  <div class="row">
+    <div class="col-9">
+      <%= form.text_field :stock, placeholder: "Stock name or ticker", class: 'col-12 form-control form-control-lg' %>
+    </div>
+    <div class="col-sm-3 center">
+      <%= form.submit "Search", class: 'btn btn-primary btn-lg' %>
+    </div>
+  </div>
+<% end %>
+
+<div id="results">
+
+</div>
+
+<%= render 'users/result' %>
+
+<!-- format testing block -->
+<!--
+<div class="card card-header mt-3" style="display: inline-block;">
+  <div class="d-flex flex-row align-items-center">
+    <div class='mr-2'><strong> Symbol: </strong> Ticker</div>
+    <div class='mr-2'><strong> Name: </strong> Name </div>
+    <div><strong> Price: </strong> Price </div>
+  </div>
+</div>
+-->
