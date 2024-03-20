@@ -1,24 +1,31 @@
 class StocksController < ApplicationController
 
-    def search
-      if params[:stock].present?
-        @stock = Stock.new_lookup(params[:stock])
-        if @stock
-          respond_to do |format|
-            format.js { render partial: 'users/results' }
-          end
-        else
-          flash.now[:alert] = "Invalid search term"
-          respond_to do |format|
-            format.js { render partial: 'users/results' }
-          end
+  def search
+    @user = current_user
+    if params[:stock].present?
+      stock = params[:stock].upcase
+      @stock = StockLookupService.new_lookup(stock)
+      if @stock[:status] == 'ERROR'
+        flash.now[:alert] = "API call limit reached"
+        respond_to do |format|
+          format.js { render partial: 'users/results' }
+        end
+      elsif @stock[:status] == 'NOT_FOUND'
+        flash.now[:alert] = "Invalid search term"
+        respond_to do |format|
+          format.js { render partial: 'users/results' }
         end
       else
-        flash.now[:alert] = "Enter a search term"
         respond_to do |format|
           format.js { render partial: 'users/results' }
         end
       end
+    else
+      flash.now[:alert] = "Enter a search term"
+      respond_to do |format|
+        format.js { render partial: 'users/results' }
+      end
     end
+  end
 
 end

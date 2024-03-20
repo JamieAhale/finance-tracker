@@ -1,3 +1,12 @@
-HOME PAGE
-
-<%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
+<div class="container mt-4">
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to FinanceTracker!</h1>
+    <p class="lead">The ultimate platform for personal finance management and investment tracking.</p>
+    <hr class="my-4">
+    <p>Whether you're a seasoned investor or just starting out, FinanceTracker provides you with the tools and insights you need to monitor your portfolio, track stock performance, and make informed decisions. Our intuitive interface makes it easy to add and manage your investments, set financial goals, and visualize your progress.</p>
+    <p>
+      Join our community of savvy users and take control of your financial future today with FinanceTracker.
+    </p>
+    <%= link_to 'Go to Portfolio', my_portfolio_path, class: "btn btn-primary btn-lg mt-3", role: "button" %>
+  </div>
+</div>

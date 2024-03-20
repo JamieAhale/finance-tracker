@@ -1,15 +1,26 @@
-<div class="mt-3 row">
-  <div class="col-5">
-    <%= render 'layouts/messages' %>
-  </div>
-</div>
-
-<% if @stock %>
-  <div class="card card-header mt-3" style="display: inline-block;">
-    <div class="d-flex flex-row align-items-center">
-      <div class='mr-2'><strong> Symbol: </strong> <%= @stock.ticker %></div>
-      <div class='mr-2'><strong> Name: </strong> <%= @stock.name %></div>
-      <div><strong> Price: </strong> <%= @stock.last_price %></div>
+<% if flash[:alert] && flash[:alert].match(/search term|API call limit reached/) %>
+  <div class="mt-3">
+    <div class="col-5">
+      <%= render 'layouts/messages' %>
     </div>
   </div>
+<% end %>
+
+<% if @stock && @stock[:status] == 'OK' %>
+    <div class="card card-header mt-3 mb-3" style="display: inline-block;">
+      <div class="d-flex flex-row align-items-center">
+        <div class='mr-2'><strong> Ticker: </strong> <%= @stock[:ticker] %></div>
+        <div class='mr-3'><strong> Price: </strong> <%= @stock[:last_price] %></div>
+        <% if @user.tickers.include?(@stock[:ticker]) %>
+          <%= form_with url: delete_ticker_from_user_path(id: @user.id, ticker: @stock[:ticker]), method: :delete do |form| %>
+            <%= form.submit "Remove from Portfolio", class: "btn btn-danger" %>
+          <% end %>
+        <% else %>  
+          <%= form_with url: add_ticker_to_user_path(@user), method: :post do |form| %>
+            <%= form.hidden_field :ticker, value: @stock[:ticker] %>
+            <%= form.submit "Add to Portfolio", class: "btn btn-success" %>
+          <% end %>      
+        <% end%>
+      </div>
+    </div>
 <% end %>
